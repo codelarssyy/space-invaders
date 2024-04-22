@@ -1,3 +1,31 @@
+#My Notes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Creator Notes Before Notes:
 # space-invaders
 A vanilla JavaScript game with HTML and CSS
 
