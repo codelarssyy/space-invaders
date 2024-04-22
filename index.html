@@ -3,25 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Typewriter Effect</title>
+    <title>Space Invaders</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             font-family: 'Courier New', Courier, monospace;
-            background-color: #8BD3E6;
+            background-color: #000;
+            overflow: hidden;
         }
 
         .typewriter h1 {
-            font-size: 1.1rem;
-            white-space: pre-wrap;
+            font-size: 4rem;
+            white-space: nowrap;
             overflow: hidden;
-            border-right: 2px solid #333;
+            border-right: 2px solid #fff;
             animation: typing 4s steps(40, end), blink-caret 1s step-end infinite;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subheading {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-top: 0.5rem;
+            text-align: center;
+            width: 100%;
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes typing {
@@ -38,34 +53,55 @@
                 border-color: transparent;
             }
             50% {
-                border-color: #333;
+                border-color: #fff;
             }
+        }
+
+        @keyframes starfield {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-100vh);
+            }
+        }
+
+        .starfield {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200%;
+            background-image: radial-gradient(#fff 1px, transparent 0), radial-gradient(#fff 1px, transparent 0);
+            background-position: 0 0, 25px 25px;
+            background-size: 50px 50px;
+            animation: starfield 10s linear infinite;
         }
     </style>
 </head>
 <body>
     <div class="typewriter">
-        <h1 id="typed-text"></h1>
+        <h1 id="typed-title">S</h1>
     </div>
+    <div class="subheading">in beta</div>
+    <button onclick="openLink()">Play Space Invaders</button>
+    <div class="starfield"></div>
     <script>
-        async function fetchReadme() {
-            const response = await fetch('README.md');
-            const text = await response.text();
-            return text;
-        }
-
-        const textElement = document.querySelector('#typed-text');
-        let index = 0;
+        const titleElement = document.querySelector('#typed-title');
+        let index = 1;
 
         async function type() {
-            const readmeText = await fetchReadme();
-            if (index < readmeText.length) {
-                textElement.textContent += readmeText[index];
+            if (index < 'Space invader 2.0'.length) {
+                titleElement.textContent += 'Space invader 2.0'[index];
                 index++;
             }
         }
 
-        setInterval(type, 50);
+        function openLink() {
+            window.open('https://play.spaceinvaders.larsylab.org', '_blank');
+        }
+
+        setInterval(type, 100);
     </script>
 </body>
 </html>
