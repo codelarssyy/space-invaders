@@ -2,20 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Space Invaders</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typewriter Effect</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #8BD3E6;
+        }
+
+        .typewriter h1 {
+            font-size: 1.1rem;
+            white-space: pre-wrap;
+            overflow: hidden;
+            border-right: 2px solid #333;
+            animation: typing 4s steps(40, end), blink-caret 1s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+            from, to {
+                border-color: transparent;
+            }
+            50% {
+                border-color: #333;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1 class="results">0</h1>
-    <div class="game-container">
-        <div class="grid"></div>
-        <button class="start-button">Start Game</button>
+    <div class="typewriter">
+        <h1 id="typed-text"></h1>
     </div>
-    <p class="made-by">Made by LM with ❤️</p>
-    <div class="win-animation">
-        <div class="win-text">You Win!</div>
-        <div class="confetti"></div>
-    </div>
-    <script src="app.js"></script>
+    <script>
+        async function fetchReadme() {
+            const response = await fetch('README.md');
+            const text = await response.text();
+            return text;
+        }
+
+        const textElement = document.querySelector('#typed-text');
+        let index = 0;
+
+        async function type() {
+            const readmeText = await fetchReadme();
+            if (index < readmeText.length) {
+                textElement.textContent += readmeText[index];
+                index++;
+            }
+        }
+
+        setInterval(type, 50);
+    </script>
 </body>
 </html>
